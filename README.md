@@ -10,7 +10,7 @@ Proyek ini merupakan implementasi aplikasi desktop sederhana berbasis Command Li
 
 3. Spesifikasi Aplikasi
 
-  - Jenis Aplikasi: Desktop sederhana (CLI / CMD)
+  - Jenis Aplikasi: Desktop sederhana (CMD)
   - Bahasa Pemrograman: Go (Golang)
 
 Input:
