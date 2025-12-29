@@ -5,9 +5,9 @@ import (
 	"time"
 )
 
-// ===============================
+const ITERASI = 100000
+
 // Binary Search Iteratif
-// ===============================
 func binarySearchIterative(data []int, target int) int {
 	low, high := 0, len(data)-1
 
@@ -24,9 +24,7 @@ func binarySearchIterative(data []int, target int) int {
 	return -1
 }
 
-// ===============================
 // Binary Search Rekursif
-// ===============================
 func binarySearchRecursive(data []int, low, high, target int) int {
 	if low > high {
 		return -1
@@ -42,54 +40,59 @@ func binarySearchRecursive(data []int, low, high, target int) int {
 	}
 }
 
-// ===============================
-// MAIN PROGRAM (CMD APP)
-// ===============================
+// MAIN PROGRAM
 func main() {
 
-	// DATA CONTOH
-	// Jumlah data bisa diubah: 20 / 100 / 1000
-	var data []int
-	for i := 0; i < 100; i++ {
-		data = append(data, 23100001+i)
+	var N int
+	fmt.Print("Masukkan jumlah data: ")
+	fmt.Scan(&N)
+
+	data := make([]int, N)
+
+	fmt.Println("Masukkan data NIM (satu per baris, HARUS terurut):")
+	for i := 0; i < N; i++ {
+		fmt.Printf("Data ke-%d: ", i+1)
+		fmt.Scan(&data[i])
 	}
 
 	var target int
-	fmt.Println("=== Aplikasi Binary Search (Go) ===")
-	fmt.Println("Jumlah data:", len(data))
 	fmt.Print("Masukkan NIM yang dicari: ")
 	fmt.Scan(&target)
 
-	// -------------------------------
 	// Iteratif
-	// -------------------------------
 	startIter := time.Now()
-	indexIter := binarySearchIterative(data, target)
+	var indexIter int
+	for i := 0; i < ITERASI; i++ {
+		indexIter = binarySearchIterative(data, target)
+	}
 	elapsedIter := time.Since(startIter)
 
-	// -------------------------------
 	// Rekursif
-	// -------------------------------
 	startRec := time.Now()
-	indexRec := binarySearchRecursive(data, 0, len(data)-1, target)
+	var indexRec int
+	for i := 0; i < ITERASI; i++ {
+		indexRec = binarySearchRecursive(data, 0, len(data)-1, target)
+	}
 	elapsedRec := time.Since(startRec)
 
-	// -------------------------------
 	// OUTPUT
-	// -------------------------------
 	fmt.Println("\n=== HASIL PENCARIAN ===")
+	fmt.Println("Jumlah Data:", N)
+	fmt.Println("Jumlah Iterasi:", ITERASI)
 
 	if indexIter != -1 {
 		fmt.Printf("Iteratif  -> Index: %d | Waktu: %d mikrodetik\n",
 			indexIter, elapsedIter.Microseconds())
 	} else {
-		fmt.Println("Iteratif  -> Data tidak ditemukan")
+		fmt.Printf("Iteratif  -> Data tidak ditemukan | Waktu: %d mikrodetik\n",
+			elapsedIter.Microseconds())
 	}
 
 	if indexRec != -1 {
 		fmt.Printf("Rekursif -> Index: %d | Waktu: %d mikrodetik\n",
 			indexRec, elapsedRec.Microseconds())
 	} else {
-		fmt.Println("Rekursif -> Data tidak ditemukan")
+		fmt.Printf("Rekursif -> Data tidak ditemukan | Waktu: %d mikrodetik\n",
+			elapsedRec.Microseconds())
 	}
 }
